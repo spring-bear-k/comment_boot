@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vendor/jquery/jquery.js"></script>
+    <script src="/js/echarts.min.js"></script>
+    <script>
+        $(function () {
+            x();
+        });
+        function x() {
+            var data1=[];
+            var data2=[];
+            var option;
+            var myChart = echarts.init(document.getElementById('main'));
+            $.ajax({
+                url:"/orderReportData",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    data.forEach(function(i){
+                        data1.push(i.title);
+                        data2.push(i.num);
+                    });
+
+                    option= {
+                        xAxis: {
+                            type: 'category',
+                            data: data1
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [{
+                            data: data2,
+                            type: 'line'
+                        }]
+                    };
+                    myChart.setOption(option);
+                },
+                error:function () {
+                    alert("失败")
+                }
+            });
+        }
+    </script>
+</head>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <div class="page-header">
+        <div th:replace="head :: html"></div>
+        <div th:replace="left :: html"></div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div id="main" style="width: 1400px;height:800px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

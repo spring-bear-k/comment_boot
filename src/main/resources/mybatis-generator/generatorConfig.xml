@@ -1,0 +1,70 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="mybatis-generator/mybatisGeneratorinit.properties"/>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+        <!--数据库驱动的属性信息-->
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+        <!--实体类位置-->
+        <javaModelGenerator targetPackage="com.dxt.comment_boot.entity"
+                            targetProject="src/main/java"/>
+        <!--XXXMapper.xml-->
+        <sqlMapGenerator targetPackage="com.dxt.comment_boot.mapper"
+                         targetProject="src/main/java"/>
+        <!--XXXDao-->
+        <javaClientGenerator targetPackage="com.dxt.comment_boot.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+        <!--有几张表对应几个table-->
+        <table tableName="ad" domainObjectName="Ad">
+            <!--column要指定主键的名字，在建表的时候要有主键  tableName表名 domainObjectName表对应的类名-->
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="business" domainObjectName="Business">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="comment" domainObjectName="Comment">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="dic" domainObjectName="Dic">
+        </table>
+        <table tableName="member" domainObjectName="Member">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="orders" domainObjectName="Orders">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_action" domainObjectName="SysAction">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_group" domainObjectName="SysGroup">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_group_action" domainObjectName="SysGroupAction">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_group_menu" domainObjectName="SysGroupMenu">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_menu" domainObjectName="SysMenu">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="sys_param" domainObjectName="SysParam">
+        </table>
+        <table tableName="sys_user" domainObjectName="SysUser">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>

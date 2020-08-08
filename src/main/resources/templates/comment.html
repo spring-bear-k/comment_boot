@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="/vendor/jquery/jquery.js"></script>
+<script>
+    function ss() {
+        $("#sform").submit();
+    }
+    function page_do(pageNo) {
+        $("#pageNum").val(pageNo);
+        $("#sform").submit();
+    }
+    function do_delete(id) {
+        if (confirm("确定要删除吗？")){
+            $.ajax({
+                url:"/comments/remove/"+id,
+                type:"DELETE",
+                dataType:"json",
+                success:function (data) {
+                    alert(data.msg);
+                    ss();
+                }
+            })
+        }
+    }
+</script>
+<body class="sidebar-fixed header-fixed">
+<div class="page-wrapper">
+    <div class="page-header">
+        <div th:replace="head :: html"></div>
+        <div th:replace="left :: html"></div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-1">&nbsp;&nbsp;<b style="font-size: 18px">广告管理</b></div>
+                <div class="col-md-4">
+                    <form action="/comments" class="bs-example bs-example-form" role="form" id="sform">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <input type="hidden" name="pageNum" id="pageNum">
+                                    <input type="text" name="title" class="form-control" placeholder="请输入需要搜索的关键字">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info" type="button" onclick="ss()">搜索</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </div><!-- /.row -->
+                    </form>
+                </div>
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-1">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>内容</th>
+                                        <th>星</th>
+                                        <th>时间</th>
+                                        <th>店铺</th>
+                                        <th>用户</th>
+                                        <th>操作</th>
+                                    </tr>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="com:${comPage.list}">
+                                            <td th:text="${com.id}"></td>
+                                            <td class="text-nowrap" th:text="${com.comment}"></td>
+                                            <td th:text="${com.star}"></td>
+                                            <td th:text="${#dates.format(com.createTime,'yyyy-MM-dd')}"></td>
+                                            <td th:text="${com.ordersVo.business.title}"></td>
+                                            <td th:text="${com.ordersVo.member.phone}"></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-xs" th:onclick="do_delete([[${com.id}]])">删除</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9"></div>
+                <ul class="pagination col-md-3">
+                    <li><button type="button" class="btn btn-warning" th:onclick="page_do(1)">首页</button></li>
+                    <li><button type="button" class="btn btn-warning" th:onclick="page_do([[${comPage.pageNum}]]-1)">上一页</button></li>
+                    <li><button type="button" class="btn btn-warning" th:onclick="page_do([[${comPage.pageNum}]]+1)">下一页</button></li>
+                    <li><button type="button" class="btn btn-warning" th:onclick="page_do([[${comPage.pages}]])">末页</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

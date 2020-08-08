@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="main-container" th:fragment="left">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav ul1">
+                <li class="nav-title">菜单</li>
+                <li class="nav-item nav-dropdown li1" th:each="m : ${session.menu}" >
+                    <a href="#" class="nav-link nav-dropdown-toggle" th:if="${m.parent_id == 0}">
+                        <i class="icon"></i> <span th:text="${m.name}"></span> <i class="fa fa-caret-left"></i>
+                    </a>
+                    <ul class="nav-dropdown-items" th:if="${m.parent_id == 0}">
+                        <li class="nav-item" th:each="mm : ${session.menu}" >
+                            <a th:href="${mm.url}" class="nav-link  a1" th:if=" ${m.id== mm.parent_id}">
+                                <i class="icon"></i><span th:text="${mm.name}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

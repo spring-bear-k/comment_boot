@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxt.comment_boot.mapper.SysParamMapper">
+  <resultMap id="BaseResultMap" type="com.dxt.comment_boot.entity.SysParam">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="param_key" jdbcType="VARCHAR" property="paramKey" />
+    <result column="param_value" jdbcType="TIMESTAMP" property="paramValue" />
+    <result column="param_desc" jdbcType="VARCHAR" property="paramDesc" />
+  </resultMap>
+</mapper>

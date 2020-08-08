@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxt.comment_boot.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.dxt.comment_boot.entity.SysMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="order_num" jdbcType="DECIMAL" property="orderNum" />
+  </resultMap>
+  <select id="selectSysMenu" resultType="com.dxt.comment_boot.entity.SysMenu" parameterType="java.lang.Integer">
+    SELECT id,parent_id,`name`,url,order_num FROM sys_menu WHERE id IN (SELECT menu_id FROM sys_group_menu WHERE group_id=#{0}) ORDER BY order_num
+  </select>
+</mapper>

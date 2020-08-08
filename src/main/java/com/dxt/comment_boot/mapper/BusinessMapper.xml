@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dxt.comment_boot.mapper.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.dxt.comment_boot.entity.Business">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="img_file_name" jdbcType="VARCHAR" property="imgFileName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="distance" jdbcType="INTEGER" property="distance" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="star_total_num" jdbcType="INTEGER" property="starTotalNum" />
+    <result column="comment_total_num" jdbcType="INTEGER" property="commentTotalNum" />
+  </resultMap>
+  <select id="getBusinessList" resultType="com.dxt.comment_boot.entity.Business">
+    SELECT * FROM business
+    <where>
+      <if test="city!=null and city!=''">
+        city=#{city}
+      </if>
+      <if test="category!=null and category!=''">
+        AND category=#{category}
+      </if>
+      <if test="title!=null and title!=''">
+        AND title LIKE concat('%',#{title},'%')
+      </if>
+    </where>
+  </select>
+  <select id="selectByKey" resultType="com.dxt.comment_boot.entity.Business" parameterType="java.lang.Integer">
+    SELECT * FROM business WHERE id=#{0}
+  </select>
+  <update id="updateBusiness" parameterType="com.dxt.comment_boot.entity.Business">
+    UPDATE business  SET img_file_name = #{business.imgFileName},title = #{business.title},subtitle = #{business.subtitle},price = #{business.price},distance = #{business.distance},`desc` = #{business.desc},city = #{business.city},category = #{business.category} WHERE  id = #{business.id}
+  </update>
+  <insert id="insertBusiness" parameterType="com.dxt.comment_boot.entity.Business">
+    INSERT INTO business  (img_file_name,title,subtitle,price,distance,`number`,`desc`,city,category,star_total_num,comment_total_num )
+    VALUES( #{business.imgFileName},#{business.title},#{business.subtitle},#{business.price},#{business.distance},#{business.number},#{business.desc},#{business.city},#{business.category},#{business.starTotalNum},#{business.commentTotalNum} )
+  </insert>
+</mapper>
